@@ -18,39 +18,27 @@ Data clustering plays a pivotal role in organizing unlabelled data into meaningf
 ## Contents
 
 1. **Data Import**
-   - Details the process of importing data and any considerations.
+   - Details the process of importing data and any considerations. Data has been analyzed deeply, and observed statistically to get better understanding. More information about features were given in the second sheet of dataset file.
 
 2. **Preprocessing Steps**
-   - **Filling Null Values**: How null values are handled in the dataset.
+   - **Filling Null Values**: Missing values have been replaced by mean (if it is numeric column) or mode of categoric columns.
 
 3. **KMeans Cluster Method**
-   - Implementation and brief description of the KMeans clustering algorithm.
+   - To find best k value for clustering, wcss and silhouette scores were found respectively and elbow curve plotted for observation. WCSS (Within-Cluster Sum of Squares) measures the sum of squared distances between each data point and its assigned centroid within a cluster, aiming to minimize this value to achieve tighter clusters and better separation between clusters. Silhouette scores assess clustering quality by measuring how similar each data point is to its own cluster compared to others, with higher scores indicating well-defined clusters.
+![image](https://github.com/yrovsen/cluster_model/assets/137065696/04d7b05d-2b1c-4726-9d11-ebbb1f749b55)
+
+Based on this graph, k = 3 was chosen best option for this model, and silhouette score for this k value is 0.4653.
 
 4. **Hierarchical Method**
-   - Overview and implementation details of hierarchical clustering.
+   - First of all, data was scaled using normalize method, and then dendrograms were plotted to choose optimal value for clustering:
+
+![image](https://github.com/yrovsen/cluster_model/assets/137065696/8c2d3887-3d8c-468c-943c-debafe38c953)
+
+Based on this plot, the number of cluster was chosen as 3, and using Agglomerative Clustering the cluster column has been created accordingly. Here is more information about Agglomerative Clustering. It is a hierarchical clustering method that starts with each data point as its own cluster and progressively merges clusters based on similarity until all points belong to a single cluster. It uses linkage criteria such as Ward, complete, or average linkage to determine how clusters are merged at each step. This method is effective for exploring hierarchical relationships within data and visualizing them using dendrograms.
+Finally, silhouette score will be 0.285.
 
 5. **Modelling**
-   - **Model Building**: Discuss the approach taken for building clustering models.
-   - **One Versus One Classifier**: Explanation of the one versus one classifier method used.
+   - After clustering applied, it can be checked using building the SVM model for multinomial classifiaction. Here One Versus One classifier is used to determine average gini score. The One-Versus-One (OvO) Classifier is a strategy used in machine learning for handling multi-class classification tasks. In OvO, a binary classifier is trained for every pair of classes in the dataset. During prediction, each classifier predicts which of the two classes is more likely for a given input. The final class prediction is determined by aggregating the votes from all pairwise classifiers, often using a voting scheme (e.g., majority voting). OvO is useful for algorithms that natively support binary classification (e.g., Support Vector Machines) and can effectively handle complex class relationships and imbalanced datasets.
 
+Here is the results: Gini score for model is 0.995, since target column has been created using other features. Therefore, it results in a high value.
 ---
-
-## Usage
-
-To use the code, clone the repository and follow these steps:
-
-1. Install the necessary dependencies.
-2. Run `main.py` to execute the clustering models.
-3. Adjust parameters in `config.py` to customize the models.
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## Contact
-
-For questions or collaborations, feel free to reach out at [your-email@example.com](mailto:your-email@example.com).
